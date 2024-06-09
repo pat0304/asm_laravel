@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminProductsController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\OrderController;
 use App\Mail\AuthenticationEmail;
 use Illuminate\Support\Facades\Mail;
 
@@ -29,7 +32,6 @@ Route::get('', [HomeController::class, 'index'])->name('/');
 Route::get('/post', [PostController::class, 'index'])->name('post');
 Route::get('/post/{id}', [PostController::class, 'detail'])->where(['id' => '[0-9]+']);
 Route::get('/cat/{id}', [PostController::class, 'category'])->where(['id' => '[0-9]+']);
-Route::get('/cart', [CartController::class, 'index']);
 
 Route::get('/products', [ShopController::class, 'index']);
 Route::get('/product/{id}', [ShopController::class, 'detail']);
@@ -49,8 +51,25 @@ Route::put("/password/reset", [AuthenticationController::class, 'reset'])->name(
 
 //User
 Route::middleware(['authUser'])->group(function () {
+    //authentication
     Route::get('/user/changePassword', [AuthenticationController::class, 'change'])->name('auth.changePassword.index');
     Route::post('/user/change_password', [AuthenticationController::class, 'changePassword'])->name('auth.changePassword');
+
+    //cart
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
+    Route::get('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
+    Route::delete('/cart/del/{id}', [CartController::class, 'delete'])->name('cart.delete');
+
+    //orders
+    Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+    Route::get('order/{id}', [OrderController::class, 'show'])->name('order.detail');
+
+    //checkout
+    Route::get('/cart/checkout', [CheckOutController::class, 'index'])->name('checkout.index');
+    Route::post('/cart/checkout', [CheckOutController::class, 'checkout'])->name('checkout.buy');
 });
 
 //Admin
@@ -80,4 +99,14 @@ Route::middleware(['authAdmin'])->group(function () {
     Route::put('/admin/products/{id}', [AdminProductsController::class, 'update'])->name('products.update');
     Route::delete('/admin/products/{id}', [AdminProductsController::class, 'destroy'])->name('products.destroy');
     Route::post('/admin/products/search', [AdminProductsController::class, 'search'])->name('products.search');
+
+    //CRUD users
+    Route::get('/admin/users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::get('/admin/users/create', [AdminUserController::class, 'create'])->name('users.create');
+    Route::post('/admin/users', [AdminUserController::class, 'store'])->name('users.store');
+    Route::get('/admin/users/{id}', [AdminUserController::class, 'show'])->name('users.show');
+    Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
+    Route::put('/admin/users/{id}', [AdminUserController::class, 'update'])->name('users.update');
+    Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/admin/users/search', [AdminUserController::class, 'search'])->name('users.search');
 });

@@ -1,12 +1,12 @@
 @extends('user.layout.app')
-
+@section('title', $title)
 @section('content')
     <div class="row mt-5 gap-2">
       <div class="col-lg-6">
         <img width="500px" class="m-auto ms-5" src="{{$data->image}}" alt="">
       </div>
       <div class="col-lg-5">
-        <div class="row mb-5">
+        <div class="row mb-3">
         <h1>{{$data->name}}</h1>
         <div class="price position-relative mt-4">
         @if ($data->sale != null)
@@ -21,8 +21,12 @@
             <h6>Mô tả:</h6>
             <p>{{$data->description}}</p>
         </div>
+        
         </div>
-            <div class="row mt-3">
+        <form action="{{route('cart.add')}}" method="POST" class="row g-3">
+          @csrf
+            {{-- <div class="row mt-3">
+              
             <div class="">
             <h6>Size:</h6>
             <input type="radio" class="btn-check" name="options" id="M" autocomplete="off" checked="">
@@ -30,9 +34,16 @@
 
             <input type="radio" class="btn-check" name="options" id="L" autocomplete="off">
             <label class="btn btn-outline-dark" for="L">L</label>
-          </div></div>
-            <br>
-            <a href="#" class="btn btn-danger  btn-lg">Thêm vào giỏ hàng</a>
+          </div>
+        </div> --}}
+        <div class="col-3">
+          <label for="">Số lượng</label>
+        <input type="number" class="mb-2 form-control" value="1" step="1" max="{{$data->warehouse}}" name="quantity" min="1">
+      </div>
+        <input type="hidden" name="id" value="{{$data->id}}">
+        <div class="col-6">
+            <button type="submit" class="btn btn-danger mt-3 btn-lg">Thêm vào giỏ hàng</button></div>
+          </form>
     </div>
     </div>
     <div class="mt-5">

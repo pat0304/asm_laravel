@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('order_id');
             $table->integer('amount');
+            $table->integer('total');
             $table->integer('size')->nullable();
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->restrictOnDelete();

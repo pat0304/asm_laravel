@@ -15,7 +15,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
+    use \Laravel\Sanctum\HasApiTokens;
     use HasFactory;
     use Notifiable;
     protected $fillable = [

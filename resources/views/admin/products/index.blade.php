@@ -76,7 +76,7 @@
                     <div style="background: url('{{url($i->image)}}');
                 background-size: cover;
                 background-position:center; height: 100px; width:100px; margin: auto"></div>
-                </td>
+         a       </td>
                 <td>
                     <h5>{{$i->name}}</h5>
                     

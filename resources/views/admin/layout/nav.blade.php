@@ -22,7 +22,7 @@
             <span class="fs-4 d-none d-sm-inline ms-2">Sản phẩm</span></a
         ></li>
     <li class="nav-item py-2 py-sm-0">
-        <a class="nav-link text-white" href="/admin" aria-current="page"
+        <a class="nav-link text-white" href="/admin/users" aria-current="page"
             ><i class="fs-5 bi bi-people-fill"></i>
             <span class="fs-4 d-none d-sm-inline ms-2">Người dùng</span></a
         ></li>

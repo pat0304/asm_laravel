@@ -133,6 +133,7 @@ class AuthenticationController extends Controller
         if ($user != null) {
             $verify = VerifyUser::create(['user_id' => $user->id, 'expire_at' => now()->addMinutes(5)->toDateTimeString()]);
             Mail::send('mail.authentication-email', compact('verify', 'user'), function ($email) use ($user) {
+                $email->subject('Đặt lại mật khẩu');
                 $email->to($user->email, 'Reset Password');
             });
             return redirect()->route('auth.forgot.index')->with('success', 'Check your email for reset password');

@@ -1,5 +1,5 @@
 @extends('user.layout.app')
-
+@section('title', $title)
 @section('content')
     <div class="row mt-5">
         <div class="col-lg-3 col-md-2 d-lg-block d-none" style="width: 225px">
