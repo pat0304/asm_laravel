@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthenticationController;
@@ -109,4 +110,10 @@ Route::middleware(['authAdmin'])->group(function () {
     Route::put('/admin/users/{id}', [AdminUserController::class, 'update'])->name('users.update');
     Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy'])->name('users.destroy');
     Route::post('/admin/users/search', [AdminUserController::class, 'search'])->name('users.search');
+
+    //orders
+    Route::get('/admin/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::get('/admin/orders/search', [AdminOrderController::class, 'search'])->name('orders.search');
+    Route::put('/admin/orders', [AdminOrderController::class, 'update'])->name('orders.update');
+    Route::get('/admin/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
 });
